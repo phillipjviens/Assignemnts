@@ -18,7 +18,6 @@ heap::heap(const map<Key, Weight>& initial) {
 		int last = 0;
 		//map<string, int>::iterator *it;
 		//for (map<Key, Weight>::const_iterator iter = initial.begin(); iter != initial.end(); ++iter)
-		//adding some notes
 		for (auto kvp : initial) {
 			heaps.push_back(kvp.first);
 			cout << kvp.first << endl;
