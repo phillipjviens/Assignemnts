@@ -16,6 +16,7 @@ heap::heap(const map<Key, Weight>& initial) {
 
 	if (!(initial.empty())) {
 		int last = 0;
+		cout << "Testing constructor" << endl;
 		for (auto kvp : initial) {
 			this->heaps.push_back(kvp.first);
 			cout << kvp.first << " : " << kvp.second <<  endl;
@@ -24,7 +25,7 @@ heap::heap(const map<Key, Weight>& initial) {
 			last++;
 			//cout << "size before heapConstruct: " << heaps.size() << endl;
 			heapConstruct();
-			cout << "constructed" << endl;
+			//cout << "constructed" << endl;
 		}
 	}
 }
@@ -45,10 +46,14 @@ const heap::WeightMap &heap:: weightMap() const {
 }
 
 bool heap::empty() const{
-	return size(heaps) == 0;
+	cout << "heaps.size() " << last() << endl;
+	cout << "heaps.begin" << heaps[0] << endl;
+	return last()==0;
 }
 
 void heap::enqueue(Key key, int weight) {
+	//cout << " beginning enqueue heaps.size(): " << heaps.size() << endl;
+
 	map<Key, int>::iterator p;
 	int i;
 	int old_w;
@@ -57,55 +62,69 @@ void heap::enqueue(Key key, int weight) {
 		p = weights.find(key);
 		old_w = p->second;
 		i = place[key];
-		cout << "place[key]:  "<< key << " " << p->second << endl;
-		cout << "old_w" << old_w << endl;
+		//cout << "place[key]:  "<< key << " " << p->second << endl;
+		//cout << "old_w: " << old_w << endl;
 
 
 	}
 	else {
 		heaps.push_back(key);
-		cout << "the key that was pushed: " << endl;
+		//cout << "the key that was pushed: " << endl;
+		//cout << "heaps Size" << heaps.size() << endl;
 		old_w = NULL;
-		cout << "old_w" << old_w << endl;
+		//cout << "old_w" << old_w << endl;
 		i = last();
 		place[key] = i;
 	}
 	weights[key] = weight;
 	if (old_w == NULL || old_w > weight) {
-		cout << "we swapped up" << endl;
+		//cout << "we swapped up" << endl;
 		swapUp(i);
 	}
 	else if (old_w < weight) {
-		cout << "we swapped down" << endl;
+		//cout << "we swapped down" << endl;
 		swapDown(i);
 	}
+	//cout << "heaps.size(): " << heaps.size() << endl;
 }
 
 heap::KeyWeight heap::dequeue() {
 	map<Key, int>::iterator p;
-	int l = heaps.size();
+	int l = heaps.size()-1;
 	Key key;
 	Weight weigth;
-	//cout << "L is: " << l << endl;
-	if (l < 0) {
-		throw string("Nothing left to dequeue");
+	cout << "L is: " << l << endl;
+	if (l <= 0) {
+		return KeyWeight(weights.begin()->first, weights.begin()->second);
 	}
 
 	// retrieve the minimum element (at the root)
 	key = heaps[0];
+	//cout << "Here's the current key at heaps[0]: " << heaps[0] << endl;
+	//cout << "Here's whats at weights.key: " << weights.find(key)->second << endl;
 	weights.erase(key);
+	//cout << "I think we erased" << endl;
 	place.erase(key);
+	//cout << "I think we also erased here " << endl;
 
 	//remove the laste element and place it at the root
 	//, then fix the heap
 	if (l > 0){
 		heaps[0] = heaps.back();
+		//cout << "did we get here1" << endl;
 		heaps.pop_back();
+		//cout << "heaps[0]= " << heaps[0] << endl;
+		//cout << "place[heaps[0]]" << place[heaps[0]] << endl;
+		//cout << "We are Here: " << place.begin()->first << " : " <<place.begin()->second<< endl;
 		place[heaps[0]] = 0;
+		//cout << "did we get here3" << endl;
 	}
 	else {
+		//cout << "Lets See if we erase" << endl;
 		heaps.erase(heaps.begin());
+		//cout << "Did we erase? " << endl;
 	}
+	return KeyWeight(weights.begin()->first, weights.begin()->second);
 }
 
 heap::Weight heap::weight(int i) const {
