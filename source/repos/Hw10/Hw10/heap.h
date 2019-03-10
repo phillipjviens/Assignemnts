@@ -10,8 +10,8 @@ class heap {
 public:
 	typedef int Weight;
 	typedef string Key;
-	//typedef vector<Key> HeapArray;
-	//typedef map<Key, Weight> WeightMap;
+	//ttypedef vector<Key> HeapArray;
+	typedef map<Key, Weight> WeightMap;
 
 	struct KeyWeight {
 		Key key;
@@ -33,9 +33,12 @@ public:
 	void enqueue(Key key, int weight);
 	KeyWeight dequeue();
 
+
+
+
 	/***  Get a list of all the key:weight pairs currently in the heap.
 	*@return list of key:weight pairs (arbitrary order)*/
-	const map<Key, Weight>& weightMap() const;
+	const WeightMap& weightMap() const;
 
 private:
 	typedef map<Key, int> PlaceMap;
