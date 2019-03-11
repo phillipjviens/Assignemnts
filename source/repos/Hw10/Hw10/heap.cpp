@@ -23,9 +23,9 @@ heap::heap(const map<Key, Weight>& initial) {
 			this->weights.insert(kvp);
 			this->place.insert(pair<Key, Weight>(kvp.first, last));
 			last++;
-			//cout << "size before heapConstruct: " << heaps.size() << endl;
+
 			heapConstruct();
-			//cout << "constructed" << endl;
+
 		}
 	}
 }
@@ -35,7 +35,6 @@ void heap::heapConstruct() {
 	int last_parent = parent(last());
 
 	for (int i = last_parent; i > -1; i--) {
-		//cout << "This swapped down" << endl;
 		swapDown(i);
 	}
 }
@@ -46,13 +45,10 @@ const heap::WeightMap &heap:: weightMap() const {
 }
 
 bool heap::empty() const{
-	cout << "heaps.size() " << last() << endl;
-	cout << "heaps.begin" << heaps[0] << endl;
 	return last()==0;
 }
 
 void heap::enqueue(Key key, int weight) {
-	//cout << " beginning enqueue heaps.size(): " << heaps.size() << endl;
 
 	map<Key, int>::iterator p;
 	int i;
@@ -62,30 +58,22 @@ void heap::enqueue(Key key, int weight) {
 		p = weights.find(key);
 		old_w = p->second;
 		i = place[key];
-		//cout << "place[key]:  "<< key << " " << p->second << endl;
-		//cout << "old_w: " << old_w << endl;
-
-
 	}
 	else {
 		heaps.push_back(key);
-		//cout << "the key that was pushed: " << endl;
-		//cout << "heaps Size" << heaps.size() << endl;
+
 		old_w = NULL;
-		//cout << "old_w" << old_w << endl;
 		i = last();
 		place[key] = i;
 	}
 	weights[key] = weight;
 	if (old_w == NULL || old_w > weight) {
-		//cout << "we swapped up" << endl;
 		swapUp(i);
 	}
 	else if (old_w < weight) {
-		//cout << "we swapped down" << endl;
+
 		swapDown(i);
 	}
-	//cout << "heaps.size(): " << heaps.size() << endl;
 }
 
 heap::KeyWeight heap::dequeue() {
@@ -98,31 +86,22 @@ heap::KeyWeight heap::dequeue() {
 		return KeyWeight(weights.begin()->first, weights.begin()->second);
 	}
 
-	// retrieve the minimum element (at the root)
 	key = heaps[0];
-	//cout << "Here's the current key at heaps[0]: " << heaps[0] << endl;
-	//cout << "Here's whats at weights.key: " << weights.find(key)->second << endl;
+	
 	weights.erase(key);
-	//cout << "I think we erased" << endl;
-	place.erase(key);
-	//cout << "I think we also erased here " << endl;
 
-	//remove the laste element and place it at the root
-	//, then fix the heap
+	place.erase(key);
+
 	if (l > 0){
 		heaps[0] = heaps.back();
-		//cout << "did we get here1" << endl;
 		heaps.pop_back();
-		//cout << "heaps[0]= " << heaps[0] << endl;
-		//cout << "place[heaps[0]]" << place[heaps[0]] << endl;
-		//cout << "We are Here: " << place.begin()->first << " : " <<place.begin()->second<< endl;
 		place[heaps[0]] = 0;
-		//cout << "did we get here3" << endl;
+
 	}
 	else {
-		//cout << "Lets See if we erase" << endl;
+
 		heaps.erase(heaps.begin());
-		//cout << "Did we erase? " << endl;
+
 	}
 	return KeyWeight(weights.begin()->first, weights.begin()->second);
 }
@@ -152,7 +131,6 @@ int heap::rightChild(int p) const {
 
 
 int heap::last() const {
-	//cout << "returning last" << endl;
 	return heaps.size()-1;
 }
 
@@ -169,7 +147,7 @@ void heap::swapUp(int i) {
 }
 
 void heap::swapDown(int p) {
-	//cout << "This is last: " << last() << endl;
+
 	int leChi = leftChild(p);
 	int riChi = rightChild(p);
 	int largest = p;
@@ -182,12 +160,11 @@ void heap::swapDown(int p) {
 	if (riChi < last() && weight(riChi) > weight(p)) {
 		largest = riChi;
 	}
-	//cout << "Are we here " << endl;
+
 	if (largest != p) {
 		swap(heaps[p], heaps[largest]);
-		//cout << "places[largest] = " << place[heaps[largest]] << endl;
+
 		place[heaps[largest]] = largest;
-		//cout << " Uplaces[largest] = " << place[heaps[largest]] << endl;
 		place[heaps[p]] = p;
 		swapDown(largest);
 	}
