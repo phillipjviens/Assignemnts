@@ -115,26 +115,27 @@ heap::KeyWeight heap::dequeue() {
 }
 
 heap::Weight heap::weight(int i) const {
-	if (i > last())
+	if (i > last()) {
 		return 0;
-	string p = heaps[i];
-	return weights.at(p);
+	}
+		string p = heaps[i];
+		return weights.at(p);
 }
 
 //returns the parent of the given index
 int heap::parent(int i) const {
-	return (i - 1) >> 1;
+	return (i - 1) / 2;
 }
 
 
 //returns the left child of the given index
 int heap::leftChild(int p) const {
-	return (2 * p);
+	return (2 * p) + 1;
 }
 
 //returns the right child of the given index
 int heap::rightChild(int p) const {
-	return (2 * p) + 1;
+	return leftChild(p) + 1;
 }
 
 
@@ -156,8 +157,26 @@ void heap::swapUp(int i) {
 }
 
 void heap::swapDown(int p) {
-	int child = rightChild(p);
+
+	int left = leftChild(p);
 	int right = rightChild(p);
+	int smallest = p;
+
+	if (left < weights.size() && weight(right) < weight(p)) {
+		smallest = left;
+	}
+	if (right < weights.size() && weight(right) < weight(smallest)) {
+		smallest = right;
+	}
+	if (smallest != p) {
+		swap(heaps[p], heaps[smallest]);
+		swapDown(smallest);
+	}
+	/*
+	int child = leftChild(p);
+	cout << "child " << child << endl;
+	int right = rightChild(p);
+	cout << "right " << right << endl;
 	int child_w = weight(child);
 	if (child_w == NULL) {
 
@@ -175,6 +194,7 @@ void heap::swapDown(int p) {
 			}
 		}
 	}
+	*/
 	/*
 	int leChi = leftChild(p);
 	int riChi = rightChild(p);
