@@ -16,14 +16,13 @@ heap::heap(const map<Key, Weight>& initial) {
 
 	if (!(initial.empty())) {
 		int last = 0;
-		cout << "Testing constructor" << endl;
+		//cout << "Testing constructor" << endl;
 		for (auto kvp : initial) {
 			this->heaps.push_back(kvp.first);
-			cout << kvp.first << " : " << kvp.second <<  endl;
+			//cout << kvp.first << " : " << kvp.second <<  endl;
 			this->weights.insert(kvp);
 			this->place.insert(pair<Key, Weight>(kvp.first, last));
 			last++;
-
 			heapConstruct();
 
 		}
@@ -71,39 +70,48 @@ void heap::enqueue(Key key, int weight) {
 		swapUp(i);
 	}
 	else if (old_w < weight) {
-
 		swapDown(i);
 	}
 }
 
 heap::KeyWeight heap::dequeue() {
 	map<Key, int>::iterator p;
-	int l = heaps.size()-1;
-	Key key;
-	Weight weigth;
-	cout << "L is: " << l << endl;
-	if (l <= 0) {
-		return KeyWeight(weights.begin()->first, weights.begin()->second);
+	int l = last();
+	Key key = "";
+	int w = 0;
+	//cout << "L is: " << l << endl;
+	if (l < 0) {
+		return KeyWeight(key, w);
 	}
-
+	//cout << "this got executed1" << endl;
 	key = heaps[0];
-	
+	//cout << "this got executed2" << endl;
+	w = weights.find(key)->second;
+	//cout << "this got executed3" << endl;
 	weights.erase(key);
-
+	//cout << "this got executed4" << endl;
 	place.erase(key);
+	//cout << "this got executed5" << endl;
 
 	if (l > 0){
-		heaps[0] = heaps.back();
+		//cout << "this got executed6" << endl;
+		heaps[0] = heaps[last()];
+		//cout << "this got executed7" << endl;
 		heaps.pop_back();
+		//cout << "this got executed8" << endl;
+		//cout << "Place[heaps[0]]= " << place[heaps[0]] << endl;
 		place[heaps[0]] = 0;
+		//cout << "this got executed9" << endl;
+		//cout << "Getting to swap Down" << endl;
+		swapDown(0);
+		//cout << "Made it past swap down" << endl;
 
 	}
 	else {
-
 		heaps.erase(heaps.begin());
-
+		return KeyWeight(key, w);
 	}
-	return KeyWeight(weights.begin()->first, weights.begin()->second);
+	return KeyWeight(key, w);
 }
 
 heap::Weight heap::weight(int i) const {
@@ -131,6 +139,7 @@ int heap::rightChild(int p) const {
 
 
 int heap::last() const {
+
 	return heaps.size()-1;
 }
 
@@ -147,7 +156,26 @@ void heap::swapUp(int i) {
 }
 
 void heap::swapDown(int p) {
+	int child = rightChild(p);
+	int right = rightChild(p);
+	int child_w = weight(child);
+	if (child_w == NULL) {
 
+	}
+	else {
+		int riW = weight(right);
+		if (riW != NULL && riW < child_w) {
+			child = right;
+			child_w = riW;
+			if (weight(p) > child_w) {
+				swap(heaps[child], heaps[p]);
+				place[heaps[child]] = child;
+				place[heaps[p]] = p;
+				swapDown(child);
+			}
+		}
+	}
+	/*
 	int leChi = leftChild(p);
 	int riChi = rightChild(p);
 	int largest = p;
@@ -168,6 +196,7 @@ void heap::swapDown(int p) {
 		place[heaps[p]] = p;
 		swapDown(largest);
 	}
+	*/
 	/*
 	riChiW = weight(riChi);
 	if (riChiW != 0 && riChiW < leChiW) {
