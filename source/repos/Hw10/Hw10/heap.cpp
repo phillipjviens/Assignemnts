@@ -147,7 +147,7 @@ int heap::last() const {
 void heap::swapUp(int i) {
 	if (i > 0) {
 		int p = parent(i);
-		if (weight(i)< weight(p)) {
+		if (weight(i) < weight(p)) {
 			swap(heaps[i], heaps[p]);
 			place[heaps[i]] = i;
 			place[heaps[p]] = p;

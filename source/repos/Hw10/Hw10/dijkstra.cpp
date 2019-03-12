@@ -4,5 +4,5 @@
 
 
 dijkstra::dijkstra(Graph g, string start) {
-	int n = ;
+
 }
