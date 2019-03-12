@@ -1,8 +1,7 @@
 #include "Graph.h"
 
 
-void Graph::addEdge(Vertex v_from, Vertex v_to, int weight=1) {
-
+void Graph::addEdge(Vertex v_from, Vertex v_to, int weight) {
 
 }
 
