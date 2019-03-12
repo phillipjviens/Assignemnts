@@ -34,6 +34,7 @@ private:
 	Edge edge;
 	Vertex vertex;
 	EdgeList edges;
+	EdgeList VertEdges;
 	VertexList vertexList;
 	map<Vertex, EdgeList> edgeList;
 };
