@@ -14,7 +14,8 @@ public:
 	typedef map<Key, Weight> WeightMap;
 
 	struct KeyWeight {
-		Key key;
+		Key key;  
+
 		Weight weight;
 		KeyWeight() : key(""), weight(0) {}
 		KeyWeight(Key k, Weight w) : key(k), weight(w) {}

@@ -16,10 +16,9 @@ heap::heap(const map<Key, Weight>& initial) {
 
 	if (!(initial.empty())) {
 		int last = 0;
-		//cout << "Testing constructor" << endl;
+
 		for (auto kvp : initial) {
 			this->heaps.push_back(kvp.first);
-			//cout << kvp.first << " : " << kvp.second <<  endl;
 			this->weights.insert(kvp);
 			this->place.insert(pair<Key, Weight>(kvp.first, last));
 			last++;
@@ -54,7 +53,8 @@ void heap::enqueue(Key key, int weight) {
 	int old_w;
 	map<Key, int> second;
 	if (weights.count(key)) {
-		p = weights.find(key);
+		p = weights.find(key);  
+
 		old_w = p->second;
 		i = place[key];
 	}
@@ -79,32 +79,20 @@ heap::KeyWeight heap::dequeue() {
 	int l = last();
 	Key key = "";
 	int w = 0;
-	//cout << "L is: " << l << endl;
 	if (l < 0) {
 		return KeyWeight(key, w);
 	}
-	//cout << "this got executed1" << endl;
+	 
 	key = heaps[0];
-	//cout << "this got executed2" << endl;
 	w = weights.find(key)->second;
-	//cout << "this got executed3" << endl;
 	weights.erase(key);
-	//cout << "this got executed4" << endl;
 	place.erase(key);
-	//cout << "this got executed5" << endl;
 
 	if (l > 0){
-		//cout << "this got executed6" << endl;
 		heaps[0] = heaps[last()];
-		//cout << "this got executed7" << endl;
 		heaps.pop_back();
-		//cout << "this got executed8" << endl;
-		//cout << "Place[heaps[0]]= " << place[heaps[0]] << endl;
 		place[heaps[0]] = 0;
-		//cout << "this got executed9" << endl;
-		//cout << "Getting to swap Down" << endl;
 		swapDown(0);
-		//cout << "Made it past swap down" << endl;
 
 	}
 	else {
@@ -148,7 +136,9 @@ void heap::swapUp(int i) {
 	if (i > 0) {
 		int p = parent(i);
 		if (weight(i) < weight(p)) {
+
 			swap(heaps[i], heaps[p]);
+
 			place[heaps[i]] = i;
 			place[heaps[p]] = p;
 			swapUp(p);

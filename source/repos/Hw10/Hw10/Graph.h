@@ -7,6 +7,7 @@ using namespace std;
 class Graph
 {
 public:
+
 	typedef string Vertex;
 
 	struct Edge {
@@ -25,7 +26,6 @@ public:
 
 
 	void addEdge(Vertex v_from, Vertex v_to, int weight = 1);
-	
 	EdgeList outgoing(Vertex v) const;
 	VertexList vertices() const;
 
