@@ -11,24 +11,31 @@ using namespace std;
 class dijkstra
 {
 public:
+	Graph g;
+	typedef Graph::Edge e;
+	typedef map <string, int> Edges;
+	typedef map <string, string> Path;
+	typedef map <string, int> KeyWeight;
+	typedef map <KeyWeight, Path> returnPair;
 	int inf = numeric_limits<int>::infinity();
 	dijkstra() {};
-	dijkstra(Graph& g, string start);
+	returnPair dijkstraAlg(Graph& g, string start);
 
 
 
 	~dijkstra() {};
 
 private: 
-	Graph g;
-	typedef Graph::Edge e;
-	typedef map <string, int> Edges;
 	int new_path_to_k;
 	vector <e> shortestEdges;
-	vector <string> path;
+
+	Path path;
+	Path paths;
+	KeyWeight shortest;
+	vector <string> this_path;
+	map <KeyWeight, Path> returns;
 	vector <string> found;
 	map <string, int> weightMap;
-	map <string, int> shortest;
 	vector <string> vert;
 	string vertex;
 	map <string, int> unsolved; 

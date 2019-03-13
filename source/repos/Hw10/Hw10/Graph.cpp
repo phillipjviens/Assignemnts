@@ -33,7 +33,7 @@ void Graph::addEdge(Vertex v_from, Vertex v_to, int weight) {
 	}
 	//If v_from is not in the vertex list it is added to the list
 	else {
-		vertexList.push_back(v_from);
+		vertexList.push_back(v_from); 
 	}
 
 }
