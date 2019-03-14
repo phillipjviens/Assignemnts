@@ -26,9 +26,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Hw10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="heap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,6 +33,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dijkstra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hw8.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

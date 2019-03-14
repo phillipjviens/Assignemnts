@@ -17,9 +17,19 @@ public:
 	typedef map <string, string> Path;
 	typedef map <string, int> KeyWeight;
 	typedef map <KeyWeight, Path> returnPair;
+	typedef vector <KeyWeight, Path> returnpair;
 	int inf = numeric_limits<int>::infinity();
+	returnPair returns;
 	dijkstra() {};
-	returnPair dijkstraAlg(Graph& g, string start);
+
+	struct data {
+		KeyWeight d;
+		Path p;
+	};
+
+	data results;
+	
+	const data dijkstraAlg(Graph& g, string start);
 
 
 
@@ -33,7 +43,7 @@ private:
 	Path paths;
 	KeyWeight shortest;
 	vector <string> this_path;
-	map <KeyWeight, Path> returns;
+	//map <KeyWeight, Path> returns;
 	vector <string> found;
 	map <string, int> weightMap;
 	vector <string> vert;

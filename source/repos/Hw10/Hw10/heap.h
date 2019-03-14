@@ -15,7 +15,6 @@ public:
 
 	struct KeyWeight {
 		Key key;  
-
 		Weight weight;
 		KeyWeight() : key(""), weight(0) {}
 		KeyWeight(Key k, Weight w) : key(k), weight(w) {}

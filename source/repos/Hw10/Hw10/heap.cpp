@@ -37,14 +37,23 @@ void heap::heapConstruct() {
 	}
 }
 
+
+
+
 const heap::WeightMap &heap:: weightMap() const {
 
 	return weights;
 }
 
+
+
+
 bool heap::empty() const{
 	return last()==0;
 }
+
+
+
 
 void heap::enqueue(Key key, int weight) {
 
@@ -74,6 +83,9 @@ void heap::enqueue(Key key, int weight) {
 	}
 }
 
+
+
+
 heap::KeyWeight heap::dequeue() {
 	map<Key, int>::iterator p;
 	int l = last();
@@ -102,6 +114,9 @@ heap::KeyWeight heap::dequeue() {
 	return KeyWeight(key, w);
 }
 
+
+
+
 heap::Weight heap::weight(int i) const {
 	if (i > last()) {
 		return 0;
@@ -110,10 +125,16 @@ heap::Weight heap::weight(int i) const {
 		return weights.at(p);
 }
 
+
+
+
 //returns the parent of the given index
 int heap::parent(int i) const {
 	return (i - 1) / 2;
 }
+
+
+
 
 
 //returns the left child of the given index
@@ -121,16 +142,25 @@ int heap::leftChild(int p) const {
 	return (2 * p) + 1;
 }
 
+
+
+
 //returns the right child of the given index
 int heap::rightChild(int p) const {
 	return leftChild(p) + 1;
 }
 
 
+
+
+
 int heap::last() const {
 
 	return heaps.size()-1;
 }
+
+
+
 
 void heap::swapUp(int i) {
 	if (i > 0) {
@@ -145,6 +175,9 @@ void heap::swapUp(int i) {
 		}
 	}
 }
+
+
+
 
 void heap::swapDown(int p) {
 
